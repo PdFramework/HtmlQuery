@@ -1,0 +1,3 @@
+HtmlQuery is intended to be a jQuery-esque library for C#. By feeding the library Html code, it parses the DOM and creates a representation of the DOM in C# objects which then can be queried using a similar syntax to the popular Javascript library jQuery.
+
+ While HTMLAgilityPack and Fizzler have been used for this in the past, I was hoping to create one library that contains both and is very quick through its parsing function and through its use of Expression trees to build up the query function.

@@ -38,7 +38,8 @@
 					var currentElement = htmlPageStack.Pop();
 					descendants.Reverse();
 
-					currentElement.Descendants = descendants;
+					//currentElement.Descendants = descendants; //TODO: research how to handle this correctly. It was erasing descendents with malformed html. Now they are remaining, but order of nodes seems to be incorrect
+					currentElement.Descendants = currentElement.Descendants.Concat(descendants);
 					currentElement.HasEndingTag = true;
 					htmlPageStack.Push(currentElement);
 

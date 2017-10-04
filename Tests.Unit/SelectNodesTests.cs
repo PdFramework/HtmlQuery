@@ -1,21 +1,20 @@
-﻿namespace PeinearyDevelopment.Web.HtmlQueryUnitTests
+﻿namespace PeinearyDevelopment.Framework.HtmlQuery.Tests.Unit
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Linq.Expressions;
-    using System.Runtime.CompilerServices;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-    using PeinearyDevelopment.Web.HtmlQuery;
+    using PeinearyDevelopment.Framework.HtmlQuery;
 
     [TestClass]
     public class SelectNodesTests
     {
         #region LocalVariablesAndTestInitialize
-        private HtmlElement domTree;
+        private DomElement domTree;
 
         [TestInitialize]
         public void Initialize()
@@ -176,7 +175,7 @@
                     writer.WriteLine("Name:" + selectedNode.TagName + " Text:" + selectedNode.Text + " Attributes:"+ string.Join(",", selectedNode.Attributes.Select(attribute => attribute.Key + ":" + attribute.Value)));
                 }
             }
-            Assert.AreEqual(1, selectedNodes.Count());
+            Assert.AreEqual(35, selectedNodes.Count());
         }
 
         //[TestMethod]
@@ -400,14 +399,14 @@
             //Expression<Func<IEnumerable<string>, int>> lfksjd = att => att.Count();
             //var eParmkeyValueParm2 = Expression.Parameter(typeof(KeyValuePair<string, IEnumerable<string>>));
 
-            var eParm = Expression.Parameter(typeof(HtmlElement));
+            var eParm = Expression.Parameter(typeof(DomElement));
             var a = eParm.CreateAnyExpression();
 
-            var elem = new HtmlElement
+            var elem = new DomElement
             {
-                Descendants = new List<HtmlElement>
+                Descendants = new List<DomElement>
                                         {
-                                            new HtmlElement
+                                            new DomElement
                                             {
                                                 Attributes = new Dictionary<string, IEnumerable<string>>
                                                             {
@@ -418,35 +417,35 @@
                                         }
             };
 
-            var elem2 = new HtmlElement
+            var elem2 = new DomElement
             {
-                Descendants = new List<HtmlElement>
+                Descendants = new List<DomElement>
                                         {
-                                            new HtmlElement
+                                            new DomElement
                                             {
                                                 Attributes = new Dictionary<string, IEnumerable<string>>()
                                             }
                                         }
             };
 
-            var elem3 = new HtmlElement
+            var elem3 = new DomElement
             {
-                Descendants = new List<HtmlElement>
+                Descendants = new List<DomElement>
                                         {
-                                            new HtmlElement()
+                                            new DomElement()
                                         }
             };
 
-            var elem4 = new HtmlElement
+            var elem4 = new DomElement
             {
-                Descendants = new List<HtmlElement>()
+                Descendants = new List<DomElement>()
             };
 
-            var elem5 = new HtmlElement
+            var elem5 = new DomElement
             {
-                Descendants = new List<HtmlElement>
+                Descendants = new List<DomElement>
                                         {
-                                            new HtmlElement
+                                            new DomElement
                                             {
                                                 Attributes = new Dictionary<string, IEnumerable<string>>
                                                             {
@@ -480,7 +479,7 @@
 
             var attributesCompareExpression = Expression.AndAlso(keyCompareExpression, valuesCompareExpression);
 
-            var parm = Expression.Parameter(typeof(HtmlElement));
+            var parm = Expression.Parameter(typeof(DomElement));
 
             var attributesAnyExpression = parm.CreateKeyValueAnyExpression(
                 PredicateBuilder.EnumerableMethodName.Any,
@@ -488,12 +487,12 @@
                 attributesCompareExpression,
                 keyValueParm);
 
-            var ee = parm.CreateElementsWhereExpression<HtmlElement>(
+            var ee = parm.CreateElementsWhereExpression<DomElement>(
                 PredicateBuilder.EnumerableMethodName.Where,
                 "Descendants",
                 attributesAnyExpression);
 
-            var l = Expression.Lambda<Func<HtmlElement, IEnumerable<HtmlElement>>>(ee, new[] { parm }).Compile(DebugInfoGenerator.CreatePdbGenerator());
+            var l = Expression.Lambda<Func<DomElement, IEnumerable<DomElement>>>(ee, new[] { parm }).Compile();// DebugInfoGenerator.CreatePdbGenerator());
 
             Assert.IsTrue(l(elem).Any());
             Assert.IsFalse(l(elem2).Any());
@@ -530,7 +529,7 @@
             //                                }
             //                            }
             //};
-            var elem = new HtmlElement
+            var elem = new DomElement
             {
 
             };

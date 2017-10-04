@@ -1,34 +1,23 @@
-﻿namespace PeinearyDevelopment.Web.HtmlQuery
+﻿namespace PeinearyDevelopment.Framework.HtmlQuery
 {
     using System;
-    using System.IO;
-    using System.Net;
+    using System.Collections.Generic;
 
-    public class DomElement : HtmlElement
+    public class DomElement
     {
-        public static HtmlElement ParseDomElement(TextReader reader)
-        {
-            return reader.ParseDomElement();
-        }
+        public string TagName { get; set; }
+        public IDictionary<string, IEnumerable<string>> Attributes { get; set; }
+        public IEnumerable<DomElement> Descendants { get; set; }
+        public string Text { get; set; }
+        internal bool HasEndingTag { get; set; }
 
-        public static HtmlElement ParseDomElement(string htmlString)
-        {
-            return htmlString.ParseDomElement();
-        }
+        // TODO: figure out logic to order element ids in breadth first approach
+        internal Tuple<int, int> Id { get; set; }
 
-        public static HtmlElement ParseDomElement(Stream stream)
+        public DomElement()
         {
-            return stream.ParseDomElement();
-        }
-
-        public static HtmlElement ParseDomElement(WebClient client, string url)
-        {
-            return client.ParseDomElement(url);
-        }
-
-        public static HtmlElement ParseDomElement(WebClient client, Uri url)
-        {
-            return client.ParseDomElement(url);
+            Attributes = new Dictionary<string, IEnumerable<string>>();
+            Descendants = new List<DomElement>();
         }
     }
 }

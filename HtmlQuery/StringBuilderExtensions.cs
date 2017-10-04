@@ -1,4 +1,4 @@
-﻿namespace PeinearyDevelopment.Web.HtmlQuery
+﻿namespace PeinearyDevelopment.Framework.HtmlQuery
 {
     using System;
     using System.Globalization;

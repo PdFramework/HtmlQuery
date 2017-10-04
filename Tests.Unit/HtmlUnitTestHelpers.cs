@@ -1,4 +1,4 @@
-﻿namespace PeinearyDevelopment.Web.HtmlQueryUnitTests
+﻿namespace PeinearyDevelopment.Framework.HtmlQuery.Tests.Unit
 {
     using System.IO;
 

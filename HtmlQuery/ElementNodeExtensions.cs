@@ -1,4 +1,4 @@
-﻿namespace PeinearyDevelopment.Web.HtmlQuery
+﻿namespace PeinearyDevelopment.Framework.HtmlQuery
 {
     using System;
     using System.Collections.Generic;
@@ -6,9 +6,9 @@
 
     public static class ElementNodeExtensions
     {
-        public static IEnumerable<HtmlElement> SelectNodes(this HtmlElement domTree, string selector)
+        public static IEnumerable<DomElement> SelectNodes(this DomElement domTree, string selector)
         {
-            var results = new List<HtmlElement>();
+            var results = new List<DomElement>();
             var funcs = new QueryGenerator().CreateHtmlFuncs(selector);
 
             foreach (var func in funcs.Where(func => domTree.Descendants != null))
@@ -20,9 +20,9 @@
             return results;
         }
 
-        private static IEnumerable<HtmlElement> Selector(this IEnumerable<HtmlElement> domTree, Func<HtmlElement, IEnumerable<HtmlElement>> func)
+        private static IEnumerable<DomElement> Selector(this IEnumerable<DomElement> domTree, Func<DomElement, IEnumerable<DomElement>> func)
         {
-            var matchingNodes = new List<HtmlElement>();
+            var matchingNodes = new List<DomElement>();
 
             foreach (var elementNode in domTree.Where(elementNode => elementNode.Descendants != null))
             {

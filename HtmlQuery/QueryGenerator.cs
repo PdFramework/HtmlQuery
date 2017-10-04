@@ -1,4 +1,4 @@
-﻿namespace PeinearyDevelopment.Web.HtmlQuery
+﻿namespace PeinearyDevelopment.Framework.HtmlQuery
 {
     using System;
     using System.Collections.Generic;
@@ -10,9 +10,9 @@
 
     public class QueryGenerator
     {
-        public IEnumerable<Func<HtmlElement, IEnumerable<HtmlElement>>> CreateHtmlFuncs(string htmlQueryString)
+        public IEnumerable<Func<DomElement, IEnumerable<DomElement>>> CreateHtmlFuncs(string htmlQueryString)
         {
-            var elementParam = Expression.Parameter(typeof(HtmlElement), "HtmlQueryDomElement");
+            var elementParam = Expression.Parameter(typeof(DomElement), "HtmlQueryDomElement");
             var keyValueParam = Expression.Parameter(typeof(KeyValuePair<string, IEnumerable<string>>), "HtmlQueryAttribute");
             var valueParam = Expression.Parameter(typeof(string), "HtmlQueryAttributeValue");
 
@@ -28,12 +28,12 @@
                                  : expression;
 
                 var ee =
-                    elementParam.CreateElementsWhereExpression<HtmlElement>(
+                    elementParam.CreateElementsWhereExpression<DomElement>(
                         PredicateBuilder.EnumerableMethodName.Where,
                         "Descendants",
                         expression2);
- 
-                yield return Expression.Lambda<Func<HtmlElement, IEnumerable<HtmlElement>>>(ee, new[] { elementParam }).Compile(DebugInfoGenerator.CreatePdbGenerator());
+
+                yield return Expression.Lambda<Func<DomElement, IEnumerable<DomElement>>>(ee, new[] { elementParam }).Compile(); // DebugInfoGenerator.CreatePdbGenerator());
             }
         }
  
